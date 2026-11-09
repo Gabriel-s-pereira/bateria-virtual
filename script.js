@@ -1,3 +1,60 @@
+// FUNÇÕES:
+function actionbutton(buttonclick) {
+        if (buttonclick == "q") {
+            actioncomp(q);
+              
+        }else if (buttonclick == "w") {
+            actioncomp(w);
+   
+        }else if (buttonclick == "e") {
+            actioncomp(e);
+     
+        }else if (buttonclick == "a") {
+            actioncomp(a);
+        
+        }else if (buttonclick == "s") {
+            actioncomp(s);
+          
+        }else if (buttonclick == "d") {
+            actioncomp(d);
+       
+        }else if (buttonclick == "z") {
+            actioncomp(z);
+          
+        }else if (buttonclick == "x") {
+            actioncomp(x);
+           
+        }else if (buttonclick == "c") {
+            actioncomp(c);
+        }else{
+            return;
+        }
+    };
+
+function actioncomp(button) {
+    button.setAttribute("style", "border: 2px solid yellow;");
+    
+    let audio = sons[button.id];
+    audio.currentTime = 0;
+    audio.play();
+
+    setTimeout(function () {
+        button.setAttribute("style", "border: 2px solid black;");
+    }, 500);
+};
+
+const sons = {
+    q: new Audio("assets/keyq.wav"),
+    w: new Audio("assets/keyw.wav"),
+    e: new Audio("assets/keye.wav"),
+    a: new Audio("assets/keys.wav"),
+    s: new Audio("assets/keys.wav"),
+    d: new Audio("assets/keyd.wav"),
+    z: new Audio("assets/keyz.wav"),
+    x: new Audio("assets/keyx.wav"),
+    c: new Audio("assets/keyc.wav")
+};
+
 // COLETAS:
 let q = document.querySelector("#q");
 let w = document.querySelector("#w");
@@ -9,30 +66,25 @@ let z = document.querySelector("#z");
 let x = document.querySelector("#x");
 let c = document.querySelector("#c");
 
-// FUNÇÕES:
-function getbutton() {
-    document.addEventListener("keyup", function (event) {
-        if (event.key == "q") {
-            q.setAttribute("background-color", "yellow");
-            console.log("q");  
-        }if (event.key == "w") {
-            w.setAttribute("color", "yellow");  
-        }if (event.key == "e") {
-            e.setAttribute("color", "yellow");  
-        }if (event.key == "a") {
-            a.setAttribute("color", "yellow");  
-        }if (event.key == "s") {
-            s.setAttribute("color", "yellow");  
-        }if (event.key == "d") {
-            d.setAttribute("color", "yellow");  
-        }if (event.key == "z") {
-            z.setAttribute("color", "yellow");  
-        }if (event.key == "x") {
-            x.setAttribute("color", "yellow");  
-        }if (event.key == "c") {
-            c.setAttribute("color", "yellow");  
-        }
-    });
-};
+let areacomp = document.querySelector("#areacomp");
+let botao = document.querySelector("#botao-tocar");
 
-getbutton();
+
+botao.addEventListener("click", function () {
+    let comp = areacomp.value;
+
+    if(!comp){console.log("vazio");
+    }else{
+        for(let i = 0; i < comp.length; i++) {
+            if(comp[i] != " "){
+                setTimeout(() => actionbutton(comp[i]),(i*500));
+            }else{
+                setTimeout(() => {},(i*500));
+            }
+        }
+    };
+    areacomp.value = "";
+    });
+
+document.addEventListener("keyup", function (event) {
+    actionbutton(event.key)});
